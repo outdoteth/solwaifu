@@ -169,7 +169,7 @@ contract ERC20Deployer is DSTest {
 
         // transfer()
         hex"80"                   // DUP1
-        hex"63" hex"a9059cbb"     // PUSH2 totalSupply() signature
+        hex"63" hex"a9059cbb"     // PUSH2 transfer() signature
         hex"14"                   // EQ -> check if we have a sig match
         hex"61" hex"00ab"         // PUSH1 0x00ab (JUMPDEST)
         hex"57"                   // JUMPI   
