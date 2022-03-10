@@ -1,6 +1,6 @@
 # Solwaifu
 
-**Solwaifu is the most optimised ERC20 contract in existance. Written in pure bytecode.**
+**Solwaifu is the most optimised ERC20 contract in existence. Written in pure bytecode.**
 
 These contracts are not audited and should be used with the utmost care. Please make sure to understand the bytecode before you use it. If using solmate is like holding a gun to your foot then using solwaifu is like playing hopscotch in a minefield while specop snipers are taking potshots at you.
 
