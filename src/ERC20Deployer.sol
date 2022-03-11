@@ -134,12 +134,12 @@ contract ERC20Deployer is DSTest {
       // copy code into memory
       hex"61" hex"0fff"         // PUSH1 0x0fff -> length of runtime code (4095 bytes to give room for editing)
       hex"60" hex"45"           // PUSH1 0x45 -> offset (length of deployCode - all this stuff)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"39"                   // CODECOPY
 
       // deploy code
       hex"61" hex"0fff"         // PUSH1 0x0156 -> length of runtime code
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"f3"                   // RETURN
     );
   }
@@ -238,10 +238,10 @@ contract ERC20Deployer is DSTest {
     return abi.encodePacked(
       hex"5b"                   // JUMPDEST
       hex"7f", _totalSupply,    // PUSH32 totalSupply
-      hex"60", hex"00",         // PUSH 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"52"                   // MSTORE
       hex"60" hex"20"           // PUSH 0x20 -> 32 byte len
-      hex"60" hex"00"           // PUSH 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"f3"                   // RETURN
     );  
   }
@@ -254,10 +254,10 @@ contract ERC20Deployer is DSTest {
       hex"60" hex"04"           // PUSH1 0x04 -> 4 byte offset (ignore function sig)
       hex"35"                   // CALLDATALOAD -> get the address
       hex"54"                   // SLOAD -> get the balance (literally: key(address) -> value(balance))
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"52"                   // MSTORE
       hex"60" hex"20"           // PUSH1 0x20 -> (32 byte len)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"f3"                   // RETURN
     );
   }
@@ -301,22 +301,22 @@ contract ERC20Deployer is DSTest {
       // fire Transfer(address indexed _from, address indexed _to, uint256 _value) event
       hex"60" hex"24"           // PUSH1 0x24 -> function sig (4 bytes) + _to (32 bytes)
       hex"35"                   // CALLDATALOAD -> get the _amount
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"52"                   // MSTSORE -> store the _amount in memory
       hex"60" hex"04"           // PUSH1 0x04 -> offset by function sig (4 bytes)
       hex"35"                   // CALLDATALOAD -> get the _to
       hex"33"                   // CALLER -> _from
       hex"7f" hex"ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef" // PUSH32 keccak256(Transfer)
       hex"60" hex"20"           // PUSH1 0x20 -> 32 byte len (for _amount)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"a3"                   // LOG3 -> fire the Transfer event
 
       // return true (10 bytes)
       hex"60" hex"01"           // PUSH1 0x01 -> true
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"52"                   // MSTORE -> store true 
       hex"60" hex"20"           // PUSH1 0x20 -> data len
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"f3"                   // RETURN
     ;
   }
@@ -374,19 +374,19 @@ contract ERC20Deployer is DSTest {
       hex"5b"                   // JUMPDEST
       hex"60" hex"40"           // PUSH1 0x40 -> data len (64 bytes)
       hex"60" hex"04"           // PUSH1 0x04 -> offset (function sig 4 bytes)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"37"                   // CALLDATACOPY -> store _owner and _spender in memory
 
       hex"60" hex"40"           // PUSH1 0x40 -> data len (64 bytes)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"20"                   // SHA3 -> get the key for the allowance
 
       hex"54"                   // SLOAD -> get the allowance
 
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"52"                   // MSTORE -> save the allowance in memory
       hex"60" hex"20"           // PUSH1 0x20 -> data len (32 bytes)
-      hex"60" hex"00"           // PUSH1 0x00 -> memptr
+      hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
       hex"f3"                   // RETURN
     ;
   }
@@ -518,10 +518,10 @@ contract ERC20Deployer is DSTest {
     return abi.encodePacked(
         hex"5b"                 // JUMPDEST
         hex"7f", _decimals,     // PUSH32 decimals
-        hex"60" hex"00"         // PUSH1 0x00 -> memptr
+        hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
         hex"52"                 // MSTORE
         hex"60" hex"20"         // PUSH1 0x20 -> data len (32 bytes)
-        hex"60" hex"00"         // PUSH1 0x00 -> memptr
+        hex"34"                   // PUSH1 0x00 -> memptr via CALLVALUE
         hex"f3"                 // RETURN
     );
   }
