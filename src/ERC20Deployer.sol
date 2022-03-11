@@ -150,7 +150,7 @@ contract ERC20Deployer is DSTest {
         // extract the 4 byte function sig
         hex"60" hex"00"           // PUSH1 0x00 -> calldata offset
         hex"35"                   // CALLDATALOAD
-        hex"60" hex"e0"           // PUSH1 0x0e -> 0x0e == 224 == 32 bytes - 4 byte function sig
+        hex"60" hex"e0"           // PUSH1 0xe0 -> 0xe0 == 224 == 32 bytes - 4 byte function sig
         hex"1c"                   // SHR -> shift right to extract just the 4 byte function sig
 
         // totalSupply()
