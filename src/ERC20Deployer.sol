@@ -132,13 +132,13 @@ contract ERC20Deployer is DSTest {
       hex"55"                   // SSTORE -> give the totalSupply to the creator
 
       // copy code into memory
-      hex"61" hex"0fff"         // PUSH1 0x0fff -> length of runtime code (4095 bytes to give room for editing)
+      hex"61" hex"0fff"         // PUSH2 0x0fff -> length of runtime code (4095 bytes to give room for editing)
       hex"60" hex"45"           // PUSH1 0x45 -> offset (length of deployCode - all this stuff)
       hex"60" hex"00"           // PUSH1 0x00 -> memptr
       hex"39"                   // CODECOPY
 
       // deploy code
-      hex"61" hex"0fff"         // PUSH1 0x0156 -> length of runtime code
+      hex"61" hex"0fff"         // PUSH2 0x0156 -> length of runtime code
       hex"60" hex"00"           // PUSH1 0x00 -> memptr
       hex"f3"                   // RETURN
     );
@@ -157,63 +157,63 @@ contract ERC20Deployer is DSTest {
         hex"80"                   // DUP1
         hex"63" hex"18160ddd"     // PUSH2 totalSupply() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"0074"         // PUSH1 0x0074 (JUMPDEST)
+        hex"61" hex"0074"         // PUSH2 0x0074 (JUMPDEST)
         hex"57"                   // JUMPI                   
 
         // balanceOf()
         hex"80"                   // DUP1
         hex"63" hex"70a08231"     // PUSH2 balanceOf() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"009e"         // PUSH1 0x009e (JUMPDEST)
+        hex"61" hex"009e"         // PUSH2 0x009e (JUMPDEST)
         hex"57"                   // JUMPI   
 
         // transfer()
         hex"80"                   // DUP1
         hex"63" hex"a9059cbb"     // PUSH2 transfer() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"00ab"         // PUSH1 0x00ab (JUMPDEST)
+        hex"61" hex"00ab"         // PUSH2 0x00ab (JUMPDEST)
         hex"57"                   // JUMPI   
 
         // approve()
         hex"80"                   // DUP1
         hex"63" hex"095ea7b3"     // PUSH2 approve() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"0104"         // PUSH1 0x0104 (JUMPDEST)
+        hex"61" hex"0104"         // PUSH2 0x0104 (JUMPDEST)
         hex"57"                   // JUMPI  
 
         // allowance()
         hex"80"                   // DUP1
         hex"63" hex"dd62ed3e"     // PUSH2 allowance() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"0155"         // PUSH1 0x0155 (JUMPDEST)
+        hex"61" hex"0155"         // PUSH2 0x0155 (JUMPDEST)
         hex"57"                   // JUMPI  
 
         // transferFrom()
         hex"80"                   // DUP1
         hex"63" hex"23b872dd"     // PUSH2 transferFrom() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"016b"         // PUSH1 0x016b (JUMPDEST)
+        hex"61" hex"016b"         // PUSH2 0x016b (JUMPDEST)
         hex"57"                   // JUMPI  
 
         // decimals()
         hex"80"                   // DUP1
         hex"63" hex"313ce567"     // PUSH2 decimals() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"0221"         // PUSH1 0x0221 (JUMPDEST)
+        hex"61" hex"0221"         // PUSH2 0x0221 (JUMPDEST)
         hex"57"                   // JUMPI  
 
         // name()
         hex"80"                   // DUP1
         hex"63" hex"06fdde03"     // PUSH2 name() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"024b"         // PUSH1 0x024b (JUMPDEST)
+        hex"61" hex"024b"         // PUSH2 0x024b (JUMPDEST)
         hex"57"                   // JUMPI  
 
         // symbol()
         hex"80"                   // DUP1
         hex"63" hex"95d89b41"     // PUSH2 symbol() signature
         hex"14"                   // EQ -> check if we have a sig match
-        hex"61" hex"02a5"         // PUSH1 0x02a5 (JUMPDEST)
+        hex"61" hex"02a5"         // PUSH2 0x02a5 (JUMPDEST)
         hex"57"                   // JUMPI  
     ;
   }
